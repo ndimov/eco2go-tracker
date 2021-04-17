@@ -1,12 +1,17 @@
 import React from 'react';
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core';
+import firebase from './firebase.js';
 
 class InputForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.studentId.value = "";
-        this.quantity.value = "";
+        const logRef = firebase.firestore().collection("log");
+        logRef.add({
+            studentID: this.studentID.value,
+            quantity: this.quantity.value,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
     }
 
     render() {
@@ -18,7 +23,7 @@ class InputForm extends React.Component {
                         name="id"
                         label="Student ID"
                         placeholder="123456"
-                        ref={input => this.studentId = input}
+                        ref={input => this.studentID = input}
                     />
                     <TextField
                         type="number"
