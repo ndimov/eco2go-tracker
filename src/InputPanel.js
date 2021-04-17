@@ -9,7 +9,8 @@ function InputPanel() {
     <div>
       Placeholder for camera features
       <CameraPanel/>
-      <InputForm /> 
+      <InputForm />
+      <Webcam />
     </div>
   )
 }
