@@ -8,7 +8,7 @@ function InputPanel() {
     <div>
       Placeholder for camera features
       <InputForm /> 
-      <Webcam />
+      <Webcam />s
     </div>
   )
 }
