@@ -22,7 +22,7 @@ class InputForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div align-items="center">
                 <form className="input-form" onSubmit={this.handleSubmit}>
                     <TextField
                         type="number"
