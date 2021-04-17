@@ -9,7 +9,8 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "^4.0.3",
+    "react-webcam": "^5.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +40,8 @@
     "@typescript-eslint/parser": "^3.10.1",
     "babel-eslint": "^10.1.0",
     "eslint-config-prettier": "^6.12.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-node": "^11.1.0",
