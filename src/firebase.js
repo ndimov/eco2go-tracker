@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 
+import 'firebase/storage'
+
 const config = {
     apiKey: "AIzaSyAf1xMhKlroWGJuSNfrpLObx8WbXZp6oGY",
     authDomain: "washu-hacktech-2021.firebaseapp.com",
@@ -9,4 +11,8 @@ const config = {
     appId: "1:269439224734:web:c870c923b78f3683a3648f"
 };
 firebase.initializeApp(config);
-export default firebase;
+const storage = firebase.storage()
+
+export{
+    storage, firebase as default
+}

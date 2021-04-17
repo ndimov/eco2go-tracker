@@ -1,49 +1,44 @@
 import React from "react";
 import Webcam from "react-webcam"
+import {storage} from "./firebase.js"
 
-class CameraPanel extends React.Component {
+const CameraPanel = () => {
+    const webcamRef = React.useRef(null);
+    const [imgSrc, setImgSrc] = React.useState(null);
+  
+    const capture = React.useCallback(() => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setImgSrc(imageSrc);
+        console.log(imageSrc)
+        storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', {contentType:'image/jpg'})
+    }, [webcamRef, setImgSrc]);
 
-    state = {
-        imageData:null
-    }
+    const videoConstraints = {
+        width: 1280,
+        height: 720,
+        facingMode: 'user',
+    };
+  
+    return (
+      <>
+        <Webcam
+          audio = {false}
+          height = {350}
+          ref = {webcamRef}
+          screenshotFormat="image/jpeg"
+          width = {350}
+          videoConstraints={videoConstraints}
+        />
+        <button onClick={capture}>Capture photo</button>
+        {imgSrc && (
+          <img
+            src={imgSrc}
+          />
+        )}
+      </>
+    );
+  };
 
-    setRef = (webcam) => {
-        this.webcam = webcam;
-    }
 
-    capture = () => {
-        const imageSrc = this.webcam.getScreenshot();
-        this.setState({
-            imageData:imageSrc
-        })
-    }
-
-    render(){
-        const videoConstraints = {
-            width: 1280,
-            height: 720,
-            facingMode: 'user',
-        };
-
-        return (
-            <div>
-                <Webcam
-                    audio = {false}
-                    height = {350}
-                    ref = {this.setRef}
-                    screenshotFormat="image/jpeg"
-                    width = {350}
-                    videoConstraints={videoConstraints}
-                />
-                <div className ="button-container"><button onClick={this.capture}> Capture </button></div>
-                {this.imageData && (
-                    <img
-                        src={this.imageData}
-                   />
-               )}
-            </div>
-        )
-    }
-}
 
 export default CameraPanel;
