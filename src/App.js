@@ -9,7 +9,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <div class="container">
+      <div className="container">
         <InputPanel class="center" />
         <Leaderboard class="center" />
       </div>
