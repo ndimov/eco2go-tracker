@@ -29,16 +29,16 @@ class InputForm extends React.Component {
                         name="id"
                         label="Student ID"
                         placeholder="123456"
-                        ref={input => this.studentID = input}
+                        inputRef={input => this.studentID = input}
                     />
                     <TextField
                         type="number"
                         name="quantity"
                         label="Number of boxes"
                         placeholder="2"
-                        ref={input => this.quantity = input}
+                        inputRef={input => this.quantity = input}
                     />
-                    <Button>Log!</Button>
+                    <Button type="submit">Log!</Button>
                 </form>
             </div>
         )
