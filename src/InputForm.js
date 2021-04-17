@@ -12,6 +12,12 @@ class InputForm extends React.Component {
             quantity: this.quantity.value,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
+            .then((logRef) => {
+                console.log("Document written with id ", logRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document", error);
+            });
     }
 
     render() {
