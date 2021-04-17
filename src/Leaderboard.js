@@ -3,17 +3,27 @@ import firebase from './firebase'
 
 class Leaderboard extends React.Component {
 
+    createTable = (ref) => {
+        
+    }
+
     render() {
 
-        var docRef = firebase.firestore().collection("log");
-        
-        docRef.get().then((doc) => {
-            console.log(doc);
+        var collectionRef = firebase.firestore().collection("log");
+
+        collectionRef.get().then((collection) => {
+            collection.forEach(doc => {
+                console.log(doc.data());
+            })
         });
 
         return (
             <div>
-                
+                <table>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         )
     }
