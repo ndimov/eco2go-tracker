@@ -8,8 +8,8 @@ class InputForm extends React.Component {
         event.preventDefault();
         const logRef = firebase.firestore().collection("log");
         logRef.add({
-            studentID: this.studentID.value,
-            quantity: this.quantity.value,
+            studentID: parseInt(this.studentID.value),
+            quantity: parseInt(this.quantity.value),
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
             .then((logRef) => {
@@ -36,6 +36,7 @@ class InputForm extends React.Component {
                         name="quantity"
                         label="Number of boxes"
                         placeholder="2"
+                        min="1"
                         inputRef={input => this.quantity = input}
                     />
                     <Button type="submit">Log!</Button>
