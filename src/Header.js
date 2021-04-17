@@ -11,6 +11,7 @@ function Header() {
         <Box m={2} />
         <Button component={Link} to={"/input"} color="inherit">Input Panel</Button>
         <Button component={Link} to={"/leaderboard"} color="inherit">Leaderboard</Button>
+        <Button component={Link} to={"/history"} color="inherit">History</Button>
       </Toolbar>
     </AppBar>
   );

@@ -4,7 +4,7 @@ import firebase from './firebase'
 class Leaderboard extends React.Component {
 
     createTable = (ref) => {
-        
+
     }
 
     render() {
