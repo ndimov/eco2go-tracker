@@ -5,10 +5,10 @@ class Leaderboard extends React.Component {
 
     render() {
 
-        var docRef = firebase.collection("log");
+        var docRef = firebase.firestore().collection("log");
         
         docRef.get().then((doc) => {
-            console.log(doc.data());
+            console.log(doc);
         });
 
         return (
@@ -18,3 +18,5 @@ class Leaderboard extends React.Component {
         )
     }
 }
+
+export default Leaderboard
