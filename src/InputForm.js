@@ -4,20 +4,31 @@ import firebase from './firebase.js';
 
 class InputForm extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            submissionText: ""
+        }
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const logRef = firebase.firestore().collection("log");
         logRef.add({
-            studentID: this.studentID.value,
-            quantity: this.quantity.value,
+            studentID: parseInt(this.studentID.value),
+            quantity: parseInt(this.quantity.value),
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
             .then((logRef) => {
                 console.log("Document written with id ", logRef.id);
+                this.setState({ submissionText: "Successfully logged data!" })
             })
             .catch((error) => {
                 console.error("Error adding document", error);
+                this.setState({ submissionText: "Error logging data." })
             });
+        this.studentID.value = "";
+        this.quantity.value = "";
     }
 
     render() {
@@ -36,9 +47,12 @@ class InputForm extends React.Component {
                         name="quantity"
                         label="Number of boxes"
                         placeholder="2"
+                        min="1"
                         inputRef={input => this.quantity = input}
                     />
                     <Button type="submit">Log!</Button>
+                    <br></br>
+                    {this.state.submissionText}
                 </form>
             </div>
         )

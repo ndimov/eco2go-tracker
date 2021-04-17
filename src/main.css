@@ -2,16 +2,24 @@
   box-sizing: border-box;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+}
+.center {
+  width: 800px;
+}
+
 body {
   margin: 0;
   background-color: whitesmoke;
 }
 
-header {
+/* header {
   height: 100px;
   display: flex;
   align-items: center;
-  background: #007360;  /* fallback for old browsers */
+  background: #007360;
 }
 
 header > img {
@@ -24,4 +32,4 @@ header > p {
   color: whitesmoke;
   font-size: 50px;
   margin-left: 60px;
-}
+} */
