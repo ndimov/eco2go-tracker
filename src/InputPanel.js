@@ -7,7 +7,7 @@ function InputPanel() {
   return (
     <div>
       Placeholder for camera features
-      <InputForm /> 
+      <InputForm />
       <Webcam />
     </div>
   )
