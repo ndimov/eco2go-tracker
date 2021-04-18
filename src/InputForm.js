@@ -19,7 +19,9 @@ class InputForm extends React.Component {
 
     onIDInput = () => {
         const namesMap = getNamesMap();
-        const name = namesMap.get(parseInt(this.studentID.value));
+        const studentID = this.studentID.value;
+        console.log(studentID);
+        const name = namesMap.get(parseInt(studentID));
         console.log("Name: ", name);
         if (name === undefined) {
             this.setState({ nameText: "Name not found in database." });
