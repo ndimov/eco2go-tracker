@@ -2,9 +2,9 @@ import * as faceapi from 'face-api.js';
 import firebase from './firebase';
 
 Promise.all([
-    faceapi.nets.faceRecognitionNet.loadfromUri('/weights'),
-    faceapi.nets.faceLandmark68Net.loadfromUri('/weights'),
-    faceapi.nets.ssdMobilenetv1.loadfromUri('/weights')
+    faceapi.nets.faceRecognitionNet.loadFromUri('/weights'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('/weights'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/weights')
 ])
 
 
@@ -19,7 +19,7 @@ async function loadLabeledImages() {
     return new faceapi.LabeledFaceDescriptors('200', detections);
 }
 
-function checkImage(img) {
+export default async function checkImage(img) {
 
     var image = new Image();
 
@@ -39,6 +39,4 @@ function checkImage(img) {
         return (bestMatch)
     }
     return
-}
-
-module.exports = { checkImage: checkImage }
+};

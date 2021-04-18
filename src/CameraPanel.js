@@ -1,7 +1,7 @@
 import React from "react";
 import Webcam from "react-webcam"
 import { storage } from "./firebase.js"
-import { checkImage } from "./cameraModel.js"
+import checkImage from "./cameraModel.js"
 
 const CameraPanel = () => {
   const webcamRef = React.useRef(null);
