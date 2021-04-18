@@ -12,8 +12,8 @@ const config = {
 };
 firebase.initializeApp(config);
 const storage = firebase.storage();
-var functions = firebase.functions();
+const functions = firebase.functions();
 
-export{
-    storage, firebase, functions as default
+export {
+    storage, functions, firebase as default
 }

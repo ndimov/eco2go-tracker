@@ -12,16 +12,18 @@ class Leaderboard extends React.Component {
         var leaderboardRef = firebase.firestore().collection("leaderboard");
 
         let rows = [];
+        let rank = 1;
 
-        leaderboardRef.orderBy("rank", "asc").get().then((collection) => {
+        leaderboardRef.orderBy("quantity", "desc").get().then((collection) => {
             collection.forEach(doc => {
                 const data = doc.data();
                 rows.push({
-                    rank: data.rank,
+                    rank: rank,
                     name: data.name,
                     studentID: data.studentID,
                     quantity: data.quantity,
                 });
+                rank += 1;
             });
             this.setState({ rows: rows });
         });
