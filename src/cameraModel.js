@@ -38,7 +38,6 @@ function checkImage(img) {
         const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
         return (bestMatch)
     }
-
     return
 }
 
