@@ -46,16 +46,17 @@ class InputPanel extends React.Component {
   };
 
   onIDInput = () => {
-    const namesMap = getNamesMap();
-    const studentID = this.studentID.value;
-    console.log(studentID);
-    const name = namesMap.get(parseInt(studentID));
-    console.log("Name: ", name);
-    if (name === undefined) {
-      this.setNameText("Name not found in database.");
-    } else {
-      this.setNameText(`Student ID matches ${name}.`);
-    }
+    getNamesMap().then((namesMap) => {
+      const studentID = this.studentID.value;
+      console.log(studentID);
+      const name = namesMap.get(parseInt(studentID));
+      console.log("Name: ", name);
+      if (name === undefined) {
+        this.setNameText("Name not found in database.");
+      } else {
+        this.setNameText(`Student ID matches ${name}.`);
+      }
+    });
   }
 
   setSubmissionText(newText) {

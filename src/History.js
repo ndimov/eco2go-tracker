@@ -11,21 +11,24 @@ class History extends React.Component {
 
     getTableRows() {
         var collectionRef = firebase.firestore().collection("log");
-        var namesMap = getNamesMap();
+        // Technically should be done with a .then as well, but log fetching takes longer
+
 
         let rows = [];
 
-        collectionRef.orderBy("timestamp", "desc").get().then((collection) => {
-            collection.forEach(doc => {
-                const data = doc.data();
-                rows.push({
-                    name: namesMap.get(data.studentID),
-                    studentID: data.studentID,
-                    quantity: data.quantity,
-                    timestamp: data.timestamp.toDate()
+        getNamesMap().then((namesMap) => {
+            collectionRef.orderBy("timestamp", "desc").get().then((collection) => {
+                collection.forEach(doc => {
+                    const data = doc.data();
+                    rows.push({
+                        name: namesMap.get(data.studentID),
+                        studentID: data.studentID,
+                        quantity: data.quantity,
+                        timestamp: data.timestamp.toDate()
+                    });
                 });
+                this.setState({ rows: rows });
             });
-            this.setState({ rows: rows });
         });
     }
 
