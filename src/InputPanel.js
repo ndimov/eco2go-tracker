@@ -13,7 +13,8 @@ class InputPanel extends React.Component {
       imgSrc: null,
       webcamEnabled: false,
       submissionText: "",
-      nameText: ""
+      nameText: "",
+      studentID: "",
     }
 
     // otherwise 'this' is bound wrong
@@ -22,6 +23,7 @@ class InputPanel extends React.Component {
   }
 
   capture() {
+    this.setNameText("Analyzing photo...");
     const imageSrc = this.webcamRef.getScreenshot();
     this.setState({ imgSrc: imageSrc });
     storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', { contentType: 'image/jpg' });
@@ -29,7 +31,19 @@ class InputPanel extends React.Component {
       if (value === undefined) {
         this.setNameText("Picture does not match a known student.");
       } else {
-        this.setStudentID(parseInt(value.label));
+        this.setStudentID(value.label);
+        // HACK copy-pasted from onIdInput()
+        getNamesMap().then((namesMap) => {
+          const studentID = this.state.studentID;
+          console.log(studentID);
+          const name = namesMap.get(parseInt(studentID));
+          console.log("Name: ", name);
+          if (name === undefined) {
+            this.setNameText("Name not found in database.");
+          } else {
+            this.setNameText(`Student ID matches ${name}.`);
+          }
+        });
       }
       this.setState({ webcamEnabled: false });
     })
@@ -45,9 +59,10 @@ class InputPanel extends React.Component {
     facingMode: 'user',
   };
 
-  onIDInput = () => {
+  onIDInput = (event) => {
+    this.setStudentID(event.target.value);
     getNamesMap().then((namesMap) => {
-      const studentID = this.studentID.value;
+      const studentID = this.state.studentID;
       console.log(studentID);
       const name = namesMap.get(parseInt(studentID));
       console.log("Name: ", name);
@@ -68,13 +83,12 @@ class InputPanel extends React.Component {
   }
 
   setStudentID(newID) {
-    this.studentID.value = newID;
-    this.studentID.startAdornment = true;
+    this.setState({ studentID: newID });
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const studentID = parseInt(this.studentID.value);
+    const studentID = parseInt(this.state.studentID);
     const quantity = parseInt(this.quantity.value);
     if (isNaN(studentID) || isNaN(quantity)) {
       this.setSubmissionText("Student ID and Quantity cannot be empty.");
@@ -82,7 +96,7 @@ class InputPanel extends React.Component {
     }
     const logRef = firebase.firestore().collection("log");
     logRef.add({
-      studentID: parseInt(this.studentID.value),
+      studentID: parseInt(this.state.studentID),
       quantity: parseInt(this.quantity.value),
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
@@ -94,7 +108,7 @@ class InputPanel extends React.Component {
         console.error("Error adding document", error);
         this.setSubmissionText("Error logging data.");
       });
-    this.studentID.value = "";
+    this.setStudentID("");
     this.quantity.value = "";
   }
 
@@ -138,7 +152,7 @@ class InputPanel extends React.Component {
             name="id"
             label="Student ID"
             placeholder="200"
-            inputRef={input => this.studentID = input}
+            value={this.state.studentID}
             onInput={this.onIDInput}
           />
           <TextField
