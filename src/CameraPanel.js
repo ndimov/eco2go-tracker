@@ -2,6 +2,7 @@ import React from "react"
 import Webcam from "react-webcam"
 import { storage } from "./firebase.js"
 import { Paper, Button } from "@material-ui/core"
+import checkImage from "./cameraModel"
 
 class CameraPanel extends React.Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class CameraPanel extends React.Component {
     const imageSrc = this.webcamRef.getScreenshot();
     this.setState({ imgSrc: imageSrc });
     storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', { contentType: 'image/jpg' });
+    checkImage(imageSrc).then((value) => {
+      alert(value)
+    })
     this.setState({ webcamEnabled: false });
   }
 
