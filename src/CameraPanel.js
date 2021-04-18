@@ -69,6 +69,4 @@ class CameraPanel extends React.Component {
   }
 };
 
-
-
 export default CameraPanel;
