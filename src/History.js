@@ -33,7 +33,6 @@ class History extends React.Component {
                 });
             });
             this.setState({ rows: rows });
-            console.log("logged", Array.from(rows));
         });
     }
 
@@ -44,7 +43,6 @@ class History extends React.Component {
     render() {
         const tsFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
         const { rows } = this.state;
-        console.log(Array.from(rows));
         return (
             < Table >
                 <TableHead>
