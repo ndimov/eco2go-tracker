@@ -1,6 +1,7 @@
 import React from "react";
 import Webcam from "react-webcam"
 import {storage} from "./firebase.js"
+import checkImage from "./cameraModel.js"
 
 const CameraPanel = () => {
     const webcamRef = React.useRef(null);
@@ -9,8 +10,8 @@ const CameraPanel = () => {
     const capture = React.useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setImgSrc(imageSrc);
-        console.log(imageSrc)
         storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', {contentType:'image/jpg'})
+        alert(checkImage(imageSrc))
     }, [webcamRef, setImgSrc]);
 
     const videoConstraints = {
