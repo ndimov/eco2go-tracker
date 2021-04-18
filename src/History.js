@@ -4,6 +4,10 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/c
 
 class History extends React.Component {
 
+    state = {
+        rows: []
+    }
+
     getTableRows() {
         var collectionRef = firebase.firestore().collection("log");
         var usersRef = firebase.firestore().collection("users");
@@ -18,26 +22,31 @@ class History extends React.Component {
 
         let rows = [];
 
-        collectionRef.get().then((collection) => {
-            let id = 0;
+        collectionRef.orderBy("timestamp", "desc").get().then((collection) => {
             collection.forEach(doc => {
                 const data = doc.data();
                 rows.push({
                     name: namesMap.get(data.studentID),
                     studentID: data.studentID,
                     quantity: data.quantity,
-                    timestamp: data.timestamp
+                    timestamp: data.timestamp.toDate()
                 });
             });
+            this.setState({ rows: rows });
+            console.log("logged", Array.from(rows));
         });
+    }
 
-        return rows;
+    componentDidMount() {
+        this.getTableRows();
     }
 
     render() {
-        console.log(this.getTableRows());
+        const tsFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const { rows } = this.state;
+        console.log(Array.from(rows));
         return (
-            <Table>
+            < Table >
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
@@ -47,14 +56,15 @@ class History extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.getTableRows().map(row => (
-                        <TableRow>
+                    {rows.map((row, idx) => (
+                        <TableRow key={idx}>
                             <TableCell scope="row" component="th">{row.name}</TableCell>
                             <TableCell>{row.studentID}</TableCell>
                             <TableCell>{row.quantity}</TableCell>
-                            <TableCell>{row.timestamp}</TableCell>
+                            <TableCell>{tsFormatter.format(row.timestamp)}</TableCell>
                         </TableRow>
-                    ))}
+                    ))
+                    }
                 </TableBody>
             </Table >
         );
