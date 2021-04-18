@@ -22,7 +22,11 @@ class CameraPanel extends React.Component {
     this.setState({ imgSrc: imageSrc });
     storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', { contentType: 'image/jpg' });
     checkImage(imageSrc).then((value) => {
-      alert(value)
+      if (value === undefined){
+        alert('Undefined')
+      } else {
+        alert(value.label)
+      }
     })
     this.setState({ webcamEnabled: false });
   }
