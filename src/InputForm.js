@@ -49,7 +49,7 @@ class InputForm extends React.Component {
                         type="number"
                         name="id"
                         label="Student ID"
-                        placeholder="123456"
+                        placeholder="200"
                         inputRef={input => this.studentID = input}
                     />
                     <TextField
@@ -60,7 +60,7 @@ class InputForm extends React.Component {
                         min="1"
                         inputRef={input => this.quantity = input}
                     />
-                    <Button type="submit">Log!</Button>
+                    <Button type="submit" className="vertical-centering">Log!</Button>
                     <br></br>
                     {this.state.submissionText}
                 </form>

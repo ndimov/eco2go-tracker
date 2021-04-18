@@ -6,6 +6,7 @@ function InputPanel() {
 
   return (
     <div>
+      <span>&nbsp;&nbsp;</span>
       <CameraPanel />
       <InputForm />
     </div>
