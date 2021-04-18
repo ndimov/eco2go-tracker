@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const updateLeaderboard = require("./updateLeaderboard.js");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -8,22 +9,22 @@ const functions = require("firebase-functions");
 //   response.send("Hello from Firebase!");
 // });
 
-
-exports.getFaces = functions.https.onCall((image) =>{
+exports.onLogCreate = updateLeaderboard.onLogCreate;
+exports.getFaces = functions.https.onCall((image) => {
 
     const storageRef = firebase.storage().ref();
     var listRef = storageRef.child('inputFaces')
 
     var imagesMap = new Map();
 
-    listRef.listAll().then((res)=>{
-        res.items.forEach(function(itemFolder) {
+    listRef.listAll().then((res) => {
+        res.items.forEach(function (itemFolder) {
             var refImage = listRef.child(itemFolder).child('image.jpg')
             imagesMap.set(itemFolder, refImage)
         })
     })
 
-    return{
+    return {
         imageMap: imagesMap
     }
 

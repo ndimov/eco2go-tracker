@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-admin.initalizeApp();
+admin.initializeApp();
 
 const db = admin.firestore();
 const leaderboardRef = db.collection("leaderboard");
@@ -24,8 +24,9 @@ exports.onLogCreate = functions.firestore
           .get()
           .then((querySnapshot) => {
             let exists = false;
-            querySnapshot.forEach((doc) => {
-              const currentQuantity = doc.quantity;
+            querySnapshot.forEach((snapshot) => {
+              const doc = snapshot.ref;
+              const currentQuantity = snapshot.data().quantity;
               const newQuantity = currentQuantity + data.quantity;
               doc.update({
                 quantity: newQuantity
@@ -38,7 +39,7 @@ exports.onLogCreate = functions.firestore
                 .get()
                 .then((querySnapshot) => {
                   // We are guaranteed to have this student ID
-                  const name = querySnapshot[0].name;
+                  const name = querySnapshot.docs[0].data().name;
                   leaderboardRef.add({
                     studentID: data.studentID,
                     name: name,
@@ -47,7 +48,7 @@ exports.onLogCreate = functions.firestore
                 });
             }
           });
-        markRan();
+        markRan(eventRef);
       }
     });
   });
