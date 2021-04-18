@@ -10,8 +10,10 @@ const CameraPanel = () => {
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-    storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', { contentType: 'image/jpg' })
-    alert(checkImage(imageSrc))
+    storage.ref(`/images/user.png`).putString(imageSrc, 'data_url', { contentType: 'image/jpg' });
+    checkImage(imageSrc).then((value)=>{
+        alert(value)
+    })
   }, [webcamRef, setImgSrc]);
 
   const videoConstraints = {

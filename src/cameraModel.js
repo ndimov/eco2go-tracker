@@ -12,11 +12,13 @@ Promise.all([
 async function loadLabeledImages() {
     var storage = firebase.storage();
     var storageRef = storage.ref();
-
     var url = await storageRef.child('inputFaces/200/image.jpg').getDownloadURL();
+    console.log(url);
     const img = await faceapi.fetchImage(url);
     const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-    return new faceapi.LabeledFaceDescriptors('200', detections);
+    const descriptors = []
+    descriptors.push(detections.descriptor)
+    return new faceapi.LabeledFaceDescriptors('200', descriptors);
 }
 
 export default async function checkImage(img) {
@@ -25,12 +27,12 @@ export default async function checkImage(img) {
 
     image.src = img;
 
-    const compare = loadLabeledImages();
+    const compare = await loadLabeledImages();
 
     const faceMatcher = new faceapi.FaceMatcher(compare, 0.6);
 
     const singleResult = await faceapi
-        .detectAllFaces(image)
+        .detectSingleFace(image)
         .withFaceLandmarks()
         .withFaceDescriptor();
 
