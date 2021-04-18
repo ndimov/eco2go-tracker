@@ -11,8 +11,18 @@ class InputForm extends React.Component {
         }
     }
 
+    setSubmissionText(newText) {
+        this.setState({ submissionText: newText });
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
+        const studentID = parseInt(this.studentID.value);
+        const quantity = parseInt(this.quantity.value);
+        if (isNaN(studentID) || isNaN(quantity)) {
+            this.setSubmissionText("Student ID and Quantity cannot be empty.");
+            return;
+        }
         const logRef = firebase.firestore().collection("log");
         logRef.add({
             studentID: parseInt(this.studentID.value),
@@ -21,11 +31,11 @@ class InputForm extends React.Component {
         })
             .then((logRef) => {
                 console.log("Document written with id ", logRef.id);
-                this.setState({ submissionText: "Successfully logged data!" })
+                this.setSubmissionText("Successfully logged data.")
             })
             .catch((error) => {
                 console.error("Error adding document", error);
-                this.setState({ submissionText: "Error logging data." })
+                this.setSubmissionText("Error logging data.");
             });
         this.studentID.value = "";
         this.quantity.value = "";
