@@ -19,7 +19,7 @@ async function loadLabeledImages() {
     return new faceapi.LabeledFaceDescriptors('200', detections);
 }
 
-async function checkImage(img){
+function checkImage(img) {
 
     var image = new Image();
 
@@ -34,12 +34,12 @@ async function checkImage(img){
         .withFaceLandmarks()
         .withFaceDescriptor();
 
-    if(singleResult){
+    if (singleResult) {
         const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
-        return(bestMatch)
+        return (bestMatch)
     }
 
     return
 }
 
-export default checkImage()
+module.exports = { checkImage: checkImage }
