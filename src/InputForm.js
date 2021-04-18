@@ -1,13 +1,30 @@
 import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import firebase from './firebase.js';
+import getNamesMap from './namesMap';
 
 class InputForm extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            submissionText: ""
+            submissionText: "",
+            nameText: ""
+        }
+    }
+
+    setStudentID(newID) {
+        this.studentID.value = newID;
+    }
+
+    onIDInput = () => {
+        const namesMap = getNamesMap();
+        const name = namesMap.get(parseInt(this.studentID.value));
+        console.log("Name: ", name);
+        if (name === undefined) {
+            this.setState({ nameText: "Name not found in database." });
+        } else {
+            this.setState({ nameText: `Student ID matches ${name}.` });
         }
     }
 
@@ -45,12 +62,15 @@ class InputForm extends React.Component {
         return (
             <div>
                 <form className="input-form" onSubmit={this.handleSubmit}>
+                    {this.state.nameText}
+                    <br></br>
                     <TextField
                         type="number"
                         name="id"
                         label="Student ID"
                         placeholder="200"
                         inputRef={input => this.studentID = input}
+                        onInput={this.onIDInput}
                     />
                     <TextField
                         type="number"

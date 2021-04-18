@@ -1,5 +1,6 @@
 import React from 'react'
 import firebase from './firebase'
+import getNamesMap from './namesMap';
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
 
 class History extends React.Component {
@@ -10,15 +11,7 @@ class History extends React.Component {
 
     getTableRows() {
         var collectionRef = firebase.firestore().collection("log");
-        var usersRef = firebase.firestore().collection("users");
-
-        var namesMap = new Map(); // Map of student id -> names
-        usersRef.get().then((collection) => {
-            collection.forEach(doc => {
-                const data = doc.data();
-                namesMap.set(data.studentID, data.name);
-            })
-        })
+        var namesMap = getNamesMap();
 
         let rows = [];
 
