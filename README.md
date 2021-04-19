@@ -1,8 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Synopsis
 
-## Available Scripts
+Use facial recognition and dynamic leaderboards to improve the use of resuable Eco2Go Boxes on WashU's Campus.
 
-In the project directory, you can run:
+[This project](https://devpost.com/software/eco2go-tracker/) won the best Environment & Sustainability hack at [Hacktech 2021](https://hacktech2021.devpost.com/).
+
+# Project Details
+## Inspiration
+WashU Dining offers reusable Eco2Go containers, which are a great alternative to disposable plastic ones. They have many benefits for the environment. A promotion for Earth Day gives students a free meal for every 10 Eco2Go containers they return, but this is tracked by punch cards which take a long time to fill out and are an antiquated solution. We thought there was a better way to track returns on Eco2Go containers while also encouraging people to use them throughout the school year as much as possible.
+
+## What it does
+Eco2Go Tracker offers a convenient input panel for the hospitality coordinators to track students' return of these boxes. They can take a picture of a student and quickly associate it with a student ID and name to log a return via facial recognition. It is also possible to input a student ID directly.
+
+This website also encourages students to return more boxes. Students can compete to be on the top of the leaderboard for who returned the most Eco2Go boxes. They can also see a history of recent entries, showing how popular and convenient Eco2Go boxes are.
+
+## How we built it
+The front-end is built in React. It interfaces with Firebase, using a Cloud Firestore to store data as well as Cloud Functions to update the leaderboard server-side whenever a new entry is logged. We use a tensorflow-js wrapper for our computer vision component to recognize faces and use Firebase Cloud Storage to associate them with student IDs.
+
+## Challenges we ran into
+We ran into some trouble getting our models to a well-performing state. We also had some trouble with the Firebase integration, and spent some time grappling with unfamiliar APIs. Dealing with asynchronous computations in JavaScript was one of our biggest pitfalls.
+
+## Accomplishments that we're proud of  
+We're most proud of how our project is set up to interface well with university systems through design choices like identifying students by ID instead of name. We're also proud of learning so much about these APIs in such a short time span when we didn't know anything about them before this hackathon.
+
+## What we learned
+We learned quite a bit about React and Firebase integrations. We also gained some experience in deploying computer vision models in the browser.
+
+## What's next for Eco2Go Tracker
+With some feature improvements, this is something we'd like to see used by our university to better implement our Eco2Go box program and help improve sustainable recycling across the WashU campus.
+
+# Build and Run
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, you can run:
 
 ### `npm start`
 
@@ -26,43 +54,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
